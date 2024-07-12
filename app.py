@@ -45,16 +45,16 @@ model.fit(X_train, y_train, batch_size=1, epochs=1)
 predictions = model.predict(X_test)
 predictions = scaler.inverse_transform(predictions)
 
-# ترسیم نتایج
-train = data[:train_size]
-valid = data[train_size:]
+# تطبیق طول داده‌های واقعی و پیش‌بینی‌ها
+valid = data[train_size + seq_length:]
 valid['Predictions'] = predictions
 
+# ترسیم نتایج
 plt.figure(figsize=(16, 8))
 plt.title('Model')
 plt.xlabel('Date')
 plt.ylabel('Close Price USD ($)')
-plt.plot(train['Close'])
+plt.plot(data['Close'])
 plt.plot(valid[['Close', 'Predictions']])
 plt.legend(['Train', 'Val', 'Predictions'], loc='lower right')
 plt.show()
